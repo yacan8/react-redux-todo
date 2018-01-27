@@ -1,0 +1,70 @@
+{
+  "name": "react-redux-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "better-npm-run start",
+    "build": "better-npm-run build",
+    "start:dll": "better-npm-run start:dll",
+    "build:dll": "better-npm-run build:dll"
+  },
+  "betterScripts": {
+    "start:dll": {
+      "command": "tdtool dll",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "start": {
+      "command": "tdtool start",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "build": {
+      "command": "tdtool build",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "build:dll": {
+      "command": "tdtool dll",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "keywords": [
+    "react",
+    "redux"
+  ],
+  "author": "can.yang",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^3.1.4",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-logger": "^3.0.6",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1"
+  },
+  "devDependencies": {
+    "assets-webpack-plugin": "^3.5.1",
+    "babel-plugin-import": "^1.6.3",
+    "better-npm-run": "^0.1.0",
+    "tdtool": "^0.1.19",
+    "tdtool-less": "^0.1.3",
+    "tdtool-react": "^0.1.8",
+    "webpack-node-externals": "^1.6.0"
+  }
+}
