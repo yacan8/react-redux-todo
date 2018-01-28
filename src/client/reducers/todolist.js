@@ -6,7 +6,7 @@ export default {
     const { todolist } = state;
     todolist.forEach(item => {
       if (item.id === id) {
-        item.computed = !item.computed;
+        item.completed = !item.completed;
       }
     })
     return { ...state, todolist: todolist.slice(0) }

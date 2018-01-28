@@ -14,7 +14,7 @@ class TodoList extends React.Component {
         dataSource={todolist}
         renderItem={item => (<List.Item>
           <div className="todo-item">
-            <a onClick={this.props.onTodoClick(item.id)} className={item.computed ? 'completed' : ''} href="javascript:;">{item.text}</a>
+            <a onClick={this.props.onTodoClick(item.id)} className={item.completed ? 'completed' : ''} href="javascript:;">{item.text}</a>
             <a onClick={this.props.onTodoDeleteClick(item.id)} className="pull-right" href="javascript:;">
               <Tooltip title="删除">
                 <Icon type="delete"/>
