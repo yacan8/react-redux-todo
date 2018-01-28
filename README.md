@@ -13,7 +13,7 @@ http://localhost:3001/
 ```
 ## 为什么需要redux
 学过react的都知道，react用`state`和`props`控制组件的渲染情况，而对于JavaScript单页面日趋复杂的今天，JavaScript需要管理越来越多的state，而这些state包括着各种乱七八糟途径来的数据。甚至有的应用的state会关系到另一个组件的状态。所以为了方便对这些state的管理以及对state变化的可控性。这个时候Redux这个东西就出来了，它可以让state的变化变得可预测。
-##Redux的基本概念
+## Redux的基本概念
 什么是redux？这里非权威的解释：就是一个应用的state管理库，甚至可以说是前端数据库。更包括的是管理数据。
 ### state
 state是整个应用的数据，本质上是一个普通对象。
