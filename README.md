@@ -100,7 +100,7 @@ store是对之前说到一个联系和管理。具有如下职责
 * 通过`subscribe(listener)`返回的函数注销监听器。
 强调一下 Redux 应用只有一个单一的`store`。当需要拆分数据处理逻辑时，你应该使用`reducer`组合,而不是创建多个`store`。`store`的创建通过`redux`的`createStore`方法创建，这个方法还需要传入`reducer`，很容易理解：毕竟我需要`dispatch`一个`action`来改变`state`嘛。 应用一般会有一个初始化的`state`，所以可选为第二个参数，这个参数通常是有服务端提供的，传说中的`Universal`渲染。后面会说。。。 第三个参数一般是需要使用的中间件，通过applyMiddleware传入。
 说了这么多，`action`，`store`，`actionCreator`，`reducer`关系就是这么如下的简单明了：
-![redux][1]
+![redux][1](./redux.png)
 ## 结合react-redux的使用
 `react-redux`，`redux`和`react`的桥梁工具。
 `react-redux`将组建分成了两大类，UI组建`component`和容器组建`container`。 简单的说，UI组建负责美的呈现，容器组件负责来帮你盛着，给你"力量"。
@@ -426,4 +426,3 @@ const mapStateToProps = (state, props) => {
 我们使用`createSelector`包裹起来，将组件内需要的两个`props`包裹起来，然后在返回一个获取数据的函数`getVisibleTodos`，这样返回的`todolist`就不会受到一些不必要的state的变化而变化引起冲渲染。
 ##最后
 总结了那么多的用法，其实也是`redux`的基本用法，然后自己写了半天的`todolist`，把上面说到的技术都用了，这是 [github地址](https://github.com/yacan8/react-redux-todo)，上面的内容如有错误，勿喷，毕竟入门级别。。。
-  [1]: ./redux.png
