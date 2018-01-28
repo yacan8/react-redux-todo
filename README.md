@@ -426,5 +426,5 @@ const mapStateToProps = (state, props) => {
 }
 ```
 我们使用`createSelector`包裹起来，将组件内需要的两个`props`包裹起来，然后在返回一个获取数据的函数`getVisibleTodos`，这样返回的`todolist`就不会受到一些不必要的state的变化而变化引起冲渲染。
-##最后
+## 最后
 总结了那么多的用法，其实也是`redux`的基本用法，然后自己写了半天的`todolist`，把上面说到的技术都用了，这是 [github地址](https://github.com/yacan8/react-redux-todo)，上面的内容如有错误，勿喷，毕竟入门级别。。。
