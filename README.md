@@ -209,8 +209,11 @@ decrement() // { type: 'DECREMENT' }
 increment(10) // { type: 'INCREMENT', payload: 10 }
 decrement([1, 42]) // { type: 'DECREMENT', payload: [1, 42] }
 ```
-###createActions
+
+### createActions
+
 创建多个`action`。
+
 ```js
 import { createActions } from 'redux-actions';
 createActions(
