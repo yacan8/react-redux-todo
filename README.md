@@ -11,17 +11,16 @@ npm run start:dll
 npm run start
 http://localhost:3001/
 ```
-
-##为什么需要redux
+## 为什么需要redux
 学过react的都知道，react用`state`和`props`控制组件的渲染情况，而对于JavaScript单页面日趋复杂的今天，JavaScript需要管理越来越多的state，而这些state包括着各种乱七八糟途径来的数据。甚至有的应用的state会关系到另一个组件的状态。所以为了方便对这些state的管理以及对state变化的可控性。这个时候Redux这个东西就出来了，它可以让state的变化变得可预测。
 ##Redux的基本概念
 什么是redux？这里非权威的解释：就是一个应用的state管理库，甚至可以说是前端数据库。更包括的是管理数据。
-###state
+### state
 state是整个应用的数据，本质上是一个普通对象。
 state决定了整个应用的组件如何渲染，渲染的结果是什么。可以说，State是应用的灵魂，组件是应用的肉体。
 所以，在项目开发初期，设计一份健壮灵活的State尤其重要，对后续的开发有很大的帮助。
 但是，并不是所有的数据都需要保存到state中，有些属于组件的数据是完全可以留给组件自身去维护的。
-###action
+### action
 数据state已经有了，那么我们是如何实现管理这些state中的数据的呢？那就是action，什么是action？按字面意思解释就是动作，也可以理解成，一个可能！改变state的动作包装。就这么简单。。。。
 只有当某一个动作发生的时候才能够触发这个state去改变，那么，触发state变化的原因那么多，比如这里的我们的点击事件，还有网络请求，页面进入，鼠标移入。。。所以action的出现，就是为了把这些操作所产生或者改变的数据从应用传到store中的有效载荷。 需要说明的是，action是state的唯一来源。它本质上就是一个JavaScript对象，但是约定的包含`type`属性，可以理解成每个人都要有名字一般。除了type属性，别的属性，都可以.
 那么这么多action一个个手动创建必然不现实，一般我们会写好`actionCreator`，即action的创建函数。调用`actionCreator`，给你返回一个action。这里我们可以使用 [redux-actions](https://www.npmjs.com/package/redux-actions)，嗯呢，我们下文有介绍。
@@ -65,7 +64,7 @@ export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 ```
 这么做不是必须的，在大型应用中把它们显式地定义成常量还是利大于弊的。
-###reducer
+### reducer
 既然这个可能改变state的动作已经包装好了，那么我们怎么去判断并且对state做相应的改变呢？对，这就是reducer干的事情了。
 `reducer`是state最终格式的确定。它是一个纯函数，也就是说，只要传入参数相同，返回计算得到的下一个 state 就一定相同。没有特殊情况、没有副作用，没有 API 请求、没有变量修改，单纯执行计算。
 `reducer`对传入的action进行判断，然后返回一个通过判断后的state，这就是reducer的全部职责。如我们的counter应用：
@@ -92,7 +91,7 @@ const rootReducer = combineReducers({
 export default rootReducer;
 ```
 每个`reducer`只负责管理全局`state`中它负责的一部分。每个`reducer`的`state`参数都不同，分别对应它管理的那部分`state`数据。`combineReducers()`所做的只是生成一个函数，这个函数来调用你的一系列`reducer`，每个`reducer`根据它们的`key`来筛选出`state`中的一部分数据并处理， 然后这个生成的函数再将所有`reducer`的结果合并成一个大的对象。
-###store
+### store
 store是对之前说到一个联系和管理。具有如下职责
 * 维持应用的`state`；
 * 提供`getState()`方法获取 state
@@ -102,7 +101,7 @@ store是对之前说到一个联系和管理。具有如下职责
 强调一下 Redux 应用只有一个单一的`store`。当需要拆分数据处理逻辑时，你应该使用`reducer`组合,而不是创建多个`store`。`store`的创建通过`redux`的`createStore`方法创建，这个方法还需要传入`reducer`，很容易理解：毕竟我需要`dispatch`一个`action`来改变`state`嘛。 应用一般会有一个初始化的`state`，所以可选为第二个参数，这个参数通常是有服务端提供的，传说中的`Universal`渲染。后面会说。。。 第三个参数一般是需要使用的中间件，通过applyMiddleware传入。
 说了这么多，`action`，`store`，`actionCreator`，`reducer`关系就是这么如下的简单明了：
 ![redux][1]
-##结合react-redux的使用
+## 结合react-redux的使用
 `react-redux`，`redux`和`react`的桥梁工具。
 `react-redux`将组建分成了两大类，UI组建`component`和容器组建`container`。 简单的说，UI组建负责美的呈现，容器组件负责来帮你盛着，给你"力量"。
 UI 组件有以下几个特征：
@@ -152,7 +151,7 @@ export default connect(
 )(App);
 ```
 `connect`方法接受两个参数：`mapStateToProps`和`mapDispatchToProps`。它们定义了UI组件的业务逻辑。前者负责输入逻辑，即将`state`映射到 UI 组件的参数（props）， 后者负责输出逻辑，即将用户对 UI 组件的操作映射成`Action`。因为作为组件，我们只要能拿到值，能发出改变值得action就可以了，所以`mapStateToProps`和`mapDispatchToProps`正是满足这个需求的。
-###redux-thunk
+### redux-thunk
 一个比较流行的redux的action中间件，它可以让`actionCreator`暂时不返回`action`对象，而是返回一个函数，函数传递两个参数`(dispatch, getState)`，在函数体内进行业务逻辑的封装，比如异步操作，我们至少需要触发两个`action`，这时候我们可以通过`redux-thunk`将这两个`action`封装在一起，如下：
 ```js
 const fetchDataAction = (querys) => (dispatch, getState) => {
@@ -169,7 +168,7 @@ const fetchDataAction = (querys) => (dispatch, getState) => {
 dispatch(fetchDataAction(querys))
 ```
 在请求数据之前，通过`redux-thunk`我们可以先触发加载中的`action`，等请求数据结束之后我们可以在次触发`action`，使得加载中状态取消，并处理请求结果。
-###redux-promise
+### redux-promise
 既然说到了异步`action`，我们可以使用`redux-promise`，它可以让`actionCreator`返回一个`Promise`对象。
 第一种做法，我们可以参考`redux-thunk`的部分。
 第二种做法，`action`对象的`payload`属性（相当于我们的diy参数，action里面携带的其他参数）是一个`Promise`对象。这需要从`redux-actions`模块引入`createAction`方法，并且写法也要变成下面这样。
@@ -189,7 +188,7 @@ class AsyncApp extends Component {
 ### redux-actions
 当我们的在开发大型应用的时候，对于大量的`action`，我们的`reducer`需要些大量的swich来对`action.type`进行判断。`redux-actions`可以简化这一烦琐的过程，它可以是`actionCreator`，也可以用来生成`reducer`，其作用都是用来简化`action`、`reducer`。
 主要函数有`createAction`、`createActions`、`handleAction`、`handleActions`、`combineActions`。
-####createAction
+#### createAction
 创建`action`，参数如下
 ```js
 import { createAction } from 'redux-actions';
@@ -210,7 +209,7 @@ increment(10) // { type: 'INCREMENT', payload: 10 }
 decrement([1, 42]) // { type: 'DECREMENT', payload: [1, 42] }
 ```
 
-### createActions
+#### createActions
 
 创建多个`action`。
 
@@ -304,7 +303,7 @@ expect(actionThree(3)).to.deep.equal({
 });
 ```
 
-### handleAction
+#### handleAction
 字面意思理解，处理`action`，那就是一个`reducer`，包裹返回一个`reducer`，处理一种类型的`action type`。
 ```js
 import { handleAction } from 'redux-actions';
@@ -329,7 +328,7 @@ handleAction('FETCH_DATA', {
 }, defaultState);
 ```
 官方推荐使用`reducerMap`形式，因为与ES6的`generator`类似。
-###handleActions
+#### handleActions
 与`handleAction`不同，`handleActions`可以处理多个`action`，也返回一个`reducer`。
 ```js
 import { handleActions } from 'redux-actions';
@@ -358,7 +357,7 @@ const reducer = handleActions({
   }
 }, defaultState);
 ```
-### combineActions
+#### combineActions
 将多个`action`或者`actionCreator`结合起来，看起来很少用，具体例子如下：
 ```js
 const { increment, decrement } = createActions({
