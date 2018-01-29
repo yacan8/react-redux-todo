@@ -153,7 +153,7 @@ export default connect(
 )(App);
 ```
 `connect`方法接受两个参数：`mapStateToProps`和`mapDispatchToProps`。它们定义了UI组件的业务逻辑。前者负责输入逻辑，即将`state`映射到 UI 组件的参数（props）， 后者负责输出逻辑，即将用户对 UI 组件的操作映射成`Action`。因为作为组件，我们只要能拿到值，能发出改变值得action就可以了，所以`mapStateToProps`和`mapDispatchToProps`正是满足这个需求的。
-### redux-thunk
+## redux-thunk
 一个比较流行的redux的action中间件，它可以让`actionCreator`暂时不返回`action`对象，而是返回一个函数，函数传递两个参数`(dispatch, getState)`，在函数体内进行业务逻辑的封装，比如异步操作，我们至少需要触发两个`action`，这时候我们可以通过`redux-thunk`将这两个`action`封装在一起，如下：
 ```js
 const fetchDataAction = (querys) => (dispatch, getState) => {
@@ -170,7 +170,7 @@ const fetchDataAction = (querys) => (dispatch, getState) => {
 dispatch(fetchDataAction(querys))
 ```
 在请求数据之前，通过`redux-thunk`我们可以先触发加载中的`action`，等请求数据结束之后我们可以在次触发`action`，使得加载中状态取消，并处理请求结果。
-### redux-promise
+## redux-promise
 既然说到了异步`action`，我们可以使用`redux-promise`，它可以让`actionCreator`返回一个`Promise`对象。
 第一种做法，我们可以参考`redux-thunk`的部分。
 第二种做法，`action`对象的`payload`属性（相当于我们的diy参数，action里面携带的其他参数）是一个`Promise`对象。这需要从`redux-actions`模块引入`createAction`方法，并且写法也要变成下面这样。
@@ -187,10 +187,10 @@ class AsyncApp extends Component {
   }
 ```
 其实`redux-actions`的`createAction`的源码是拿到fetch对象的payload结果之后又触发了一次`action`。
-### redux-actions
+## redux-actions
 当我们的在开发大型应用的时候，对于大量的`action`，我们的`reducer`需要些大量的swich来对`action.type`进行判断。`redux-actions`可以简化这一烦琐的过程，它可以是`actionCreator`，也可以用来生成`reducer`，其作用都是用来简化`action`、`reducer`。
 主要函数有`createAction`、`createActions`、`handleAction`、`handleActions`、`combineActions`。
-#### createAction
+### createAction
 创建`action`，参数如下
 ```js
 import { createAction } from 'redux-actions';
@@ -211,7 +211,7 @@ increment(10) // { type: 'INCREMENT', payload: 10 }
 decrement([1, 42]) // { type: 'DECREMENT', payload: [1, 42] }
 ```
 
-#### createActions
+### createActions
 
 创建多个`action`。
 
@@ -305,7 +305,7 @@ expect(actionThree(3)).to.deep.equal({
 });
 ```
 
-#### handleAction
+### handleAction
 字面意思理解，处理`action`，那就是一个`reducer`，包裹返回一个`reducer`，处理一种类型的`action type`。
 ```js
 import { handleAction } from 'redux-actions';
@@ -330,7 +330,7 @@ handleAction('FETCH_DATA', {
 }, defaultState);
 ```
 官方推荐使用`reducerMap`形式，因为与ES6的`generator`类似。
-#### handleActions
+### handleActions
 与`handleAction`不同，`handleActions`可以处理多个`action`，也返回一个`reducer`。
 ```js
 import { handleActions } from 'redux-actions';
@@ -359,7 +359,7 @@ const reducer = handleActions({
   }
 }, defaultState);
 ```
-#### combineActions
+### combineActions
 将多个`action`或者`actionCreator`结合起来，看起来很少用，具体例子如下：
 ```js
 const { increment, decrement } = createActions({
